@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return "<h1>Welcome to ecaijw's Home</h1>"
+    return "<h1>Welcome to ecaijw's Home. 经伟会添加更多功能</h1>"
 
 @app.route('/signin', methods=['GET'])
 def signin_form():
