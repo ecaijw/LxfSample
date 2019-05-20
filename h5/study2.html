@@ -8,21 +8,175 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Html和CSS的关系</title>
+        <!--
+        CSS的优先级：内联式 > 嵌入式 > 外部式
+        但是嵌入式>外部式有一个前提：嵌入式css样式的位置一定在外部式的后面
+        -->
+        <!--
+         linked CSS file
+        <link href="style.css" rel="stylesheet" type="text/css" /> -->
+        <link href="style.css" rel="stylesheet" type="text/css" />
+
+        <!-- general selector  *    -->
+        <!-- class selector  .class    -->
+        <!-- child selector  .class>child    -->
+        <!-- ID selector  #ID
+        1、ID选择器只能在文档中使用一次。与类选择器不同，在一个HTML文档中，ID选择器只能使用一次，而且仅一次。而类选择器可以使用多次。
+        2、可以使用类选择器词列表方法为一个元素同时设置多个样式。我们可以为一个元素同时设多个样式，但只可以用类选择器的方法实现，ID选择器是不可以的（不能使用 ID 词列表）
+          <span class="stress bigsize">
+         -->
+        <!-- pseudo-class selector a:hover -->
+        <!--
+        标签的权值为1，类选择符的权值为10，ID选择符的权值最高为100。例如下面的代码：
+        p{color:red;} /*权值为1*/
+        p span{color:green;} /*权值为1+1=2*/
+        .warning{color:white;} /*权值为10*/
+        p span.warning{color:purple;} /*权值为1+1+10=12*/
+        #footer .note p{color:yellow;} /*权值为100+10+1=111*/
+        
+        包含选择器，即加入空格,用于选择指定标签元素下的后辈元素。
+        总结：>作用于元素的第一代后代，空格作用于元素的所有后代。
+        
+        
+        层叠就是在html文件中对于同一个元素可以有多个css样式存在，当有相同权重的样式存在时，会根据这些css样式的前后顺序来决定，处于最后面的css样式会被应用。
+        内联样式表（标签内部）> 嵌入样式表（当前文件中）> 外部样式表（外部文件中）。
+        
+        有些特殊的情况需要为某些样式设置具有最高权值，怎么办？这时候我们可以使用!important来解决。
+        p{color:red!important;}
+        
+        dashed（虚线）| dotted（点线）| solid（实线）。
+        body{font-family:"微软雅黑";}
+        body{font-size:12px;color:#666;}
+        a{font-weight:bold;}
+        p {font-style:italic;}
+        span{text-decoration:underline;}
+        .oldPrice{text-decoration:line-through;}
+        p{text-indent:2em;}
+        p{line-height:2em;}
+        h1{letter-spacing:20px;}
+        div{text-align:center;}
+        
+        在CSS中，html中的标签元素大体被分为三种不同的类型：块状元素、内联元素(又叫行内元素)和内联块状元素。
+        常用的块状元素有：
+        <div>、<p>、<h1>...<h6>、<ol>、<ul>、<dl>、<table>、<address>、<blockquote> 、<form>
+        常用的内联元素有：
+        <a>、<span>、<br>、<i>、<em>、<strong>、<label>、<q>、<var>、<cite>、<code>
+        常用的内联块状元素有：
+        <img>、<input>
+
+        p>span{display:block;}
+        
+        #a-block{display:inline-block;  }
+        a{
+
+        	width:100px;/*在默认情况下宽度不起作用*/
+        	height:20px;/*在默认情况下高度不起作用*/
+        	background:pink;/*设置背景颜色为粉色*/
+        	text-align:center; /*设置文本居中显示*/
+        }
+        
+        p {border:2px dotted #ccc;}
+        li{
+            border-bottom: 1px dotted #ccc;
+        }
+        li{
+            border-bottom:1px dotted #ccc;
+            width:200px; height:30px;
+        }
+        填充也可分为上、右、下、左(顺时针)。如下代码：
+        div{padding:20px 10px 15px 30px;}
+        #box1 {margin-bottom:30px;}
+        
+        在网页中，元素有三种布局模型：
+          1、流动模型（Flow）
+          2、浮动模型 (Float)
+          3、层模型（Layer）
+
+
+          div{
+              width:200px;
+              height:200px;
+          	border:2px red solid;
+          	position:absolute;
+          	right:100px;
+          	top:20px;
+          }
+
+          fixed：表示固定定位，与absolute定位类型类似，但它的相对移动的坐标是视图（屏幕内的网页窗口）本身。
+          由于视图本身是固定的，它不会随浏览器窗口的滚动条滚动而变化，除非你在屏幕中移动浏览器窗口的屏幕位置，
+          或改变浏览器窗口的显示大小，因此固定定位的元素会始终位于浏览器窗口内视图的某个位置，不会受文档流动影响，
+          这与background-attachment:fixed;属性功能相同。
+          
+          网页中的字体css样式代码也有他自己的缩写方式，下面是给网页设置字体的代码：
+          body{
+              font-style:italic;
+              font-variant:small-caps;
+              font-weight:bold;
+              font-size:12px;
+              line-height:1.5em;
+              font-family:"宋体",sans-serif;
+          }
+          这么多行的代码其实可以缩写为一句：
+          body{
+              font:italic  small-caps  bold  12px/1.5em  "宋体",sans-serif;
+          }
+          1、使用这一简写方式你至少要指定 font-size 和 font-family 属性，其他的属性(如 font-weight、font-style、font-variant、line-height)如未指定将自动使用默认值。
+          2、在缩写时 font-size 与 line-height 中间要加入“/”斜扛。
+
+
+      http://www.imooc.com/code/6364
+      不定宽度的块状元素有三种方法居中（这三种方法目前使用的都很多）：
+      加入 table 标签
+      设置 display: inline 方法：与第一种类似，显示类型设为 行内元素，进行不定宽元素的属性设置
+      设置 position:relative 和 left:50%：利用 相对定位 的方式，将元素向左偏移 50% ，即达到居中的目的
+      这一小节我们来讲一下第一种方法：
+      为什么选择方法一加入table标签? 是利用table标签的长度自适应性---即不定义其长度也不默认父元素body的长度（table其长度根据其内文本长度决定），因此可以看做一个定宽度块元素，然后再利用定宽度块状居中的margin的方法，使其水平居中。
+
+      有一个有趣的现象就是当为元素（不论之前是什么类型元素，display:none 除外）设置以下 2 个句之一：
+       1. position : absolute
+       2. float : left 或 float:right
+      简单来说，只要html代码中出现以上两句之一，元素的display显示类型就会自动变为以 display:inline-block（块状元素）的方式显示，当然就可以设置元素的 width 和 height 了，且默认宽度不占满父元素。
+
+          -- >
+
         <style type="text/css">
         h1{
             font-size:12px;
             color:#930;
             text-align:center;
         }
+        h2 {
+            color:blue;
+        }
         span {
             color:blue;
         }
+        .food>li {
+          color:green
+        }
+        .class1 {
+          color:yellow
+        }
+        .class2 {
+          font-size:40px;
+        }
+
+        #idSpan {
+          border:1px solid yellow;
+        }
+        a:hover{
+          color:red;
+          font-size:20px;
+        }
+        
         </style>
         <style type="text/css">
             table tr td, th {border:2px solid #F00}
         </style>
     </head>
     <body>
+        <h3>test blue color for linked CSS</h3>
+
         <div id="hello">
         <h1>Hello World!</h1>
         <p>
@@ -34,7 +188,7 @@
         <img src="http://img.mukewang.com/52b4113500018cf102000200.jpg">
         <img src="http://img.mukewang.com/52da54ed0001ecfa04120172.jpg" alt="my image" title="image title">
         <img src="http://img.mukewang.com/error.jpg" alt="test image alt" title="image title">
-    </div>
+        </div>
 
         <div id="a href">
         <a href="http://www.baidu.com" target="_blank">baidu.com</a><p />
@@ -52,6 +206,24 @@
         </form>
         </div>
 
+    <div id="div food">
+      <ul class="food">
+          <li>水果
+              <ul>
+              	<li>香蕉</li>
+                  <li>苹果</li>
+                  <li>梨</li>
+              </ul>
+          </li>
+          <li>蔬菜
+          	<ul>
+              	<li><span id="idSpan" class="class1 class2">白菜</span></li>
+                  <li>油菜</li>
+                  <li>卷心菜</li>
+              </ul>
+          </li>
+      </ul>
+    </div>
     <div id="test table">
         <table summary="table summary">
         <caption>test table</caption>
